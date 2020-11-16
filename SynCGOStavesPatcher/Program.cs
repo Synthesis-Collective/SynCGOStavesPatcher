@@ -31,7 +31,7 @@ namespace SynPatcher
             if(state.LoadOrder.ContainsKey(mk)) {
                 foreach(var weap in state.LoadOrder.PriorityOrder.OnlyEnabled().Weapon().WinningOverrides()) {
                     if(weap.Keywords?.Contains(Skyrim.Keyword.WeapTypeStaff)??false) {
-                        if(weap.FormKey.ModKey.FileName.Contains("CGOStaves")) {
+                        if(!weap.FormKey.ModKey.FileName.Contains("CGOStaves")) {
                             var newweap = state.PatchMod.Weapons.GetOrAddAsOverride(weap);
                             newweap.BlockBashImpact = Skyrim.ImpactDataSet.WPNBashBowImpactSet;
                             newweap.AlternateBlockMaterial = Skyrim.MaterialType.MaterialBlockBowsStaves;
