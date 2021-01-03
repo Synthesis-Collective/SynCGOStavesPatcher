@@ -6,7 +6,7 @@ using Mutagen.Bethesda.Synthesis;
 using Mutagen.Bethesda.Skyrim;
 using Mutagen.Bethesda.FormKeys.SkyrimSE;
 
-namespace SynPatcher
+namespace SynCGOStaves
 {
     public class Program
     {
