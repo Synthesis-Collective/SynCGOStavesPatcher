@@ -12,14 +12,11 @@ namespace SynCGOStaves
     {
         public static async Task<int> Main(string[] args)
         {
-            return await SynthesisPipeline.Instance.AddRunnabilityCheck(Runable).AddPatch<ISkyrimMod, ISkyrimModGetter>(RunPatch).Run(args, new RunPreferences()
-            {
-                ActionsForEmptyArgs = new RunDefaultPatcher()
-                {
-                    IdentifyingModKey = "SynCGOStaves.esp",
-                    TargetRelease = GameRelease.SkyrimSE
-                }
-            });
+            return await SynthesisPipeline.Instance
+                .AddRunnabilityCheck(Runable)
+                .AddPatch<ISkyrimMod, ISkyrimModGetter>(RunPatch)
+                .SetTypicalOpen(GameRelease.SkyrimSE, "SynCGOStaves.esp")
+                .Run(args);
         }
 
         public static void RunPatch(IPatcherState<ISkyrimMod, ISkyrimModGetter> state)
@@ -32,18 +29,17 @@ namespace SynCGOStaves
                     {
                         Console.WriteLine($"Patching staff {weap.Name}");
                         Weapon? newweap = state.PatchMod.Weapons.GetOrAddAsOverride(weap);
-                        newweap.BlockBashImpact = Skyrim.ImpactDataSet.WPNBashBowImpactSet;
-                        newweap.AlternateBlockMaterial = Skyrim.MaterialType.MaterialBlockBowsStaves;
-                        newweap.ImpactDataSet = Skyrim.ImpactDataSet.WPNzBluntImpactSet;
-                        newweap.AttackFailSound = Skyrim.SoundDescriptor.WPNSwing2Hand;
+                        newweap.BlockBashImpact.SetTo(Skyrim.ImpactDataSet.WPNBashBowImpactSet);
+                        newweap.AlternateBlockMaterial.SetTo(Skyrim.MaterialType.MaterialBlockBowsStaves);
+                        newweap.ImpactDataSet.SetTo(Skyrim.ImpactDataSet.WPNzBluntImpactSet);
+                        newweap.AttackFailSound.SetTo(Skyrim.SoundDescriptor.WPNSwing2Hand);
                     }
                 }
             }
         }
-        public static Task Runable(IRunnabilityState state)
+        public static void Runable(IRunnabilityState state)
         {
             state.LoadOrder.AssertHasMod(ModKey.FromNameAndExtension("DSerCombatGameplayOverhaul.esp"));
-            return Task.CompletedTask;
         }
     }
 }
