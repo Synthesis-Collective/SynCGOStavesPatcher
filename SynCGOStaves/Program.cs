@@ -5,6 +5,8 @@ using Mutagen.Bethesda;
 using Mutagen.Bethesda.Synthesis;
 using Mutagen.Bethesda.Skyrim;
 using Mutagen.Bethesda.FormKeys.SkyrimSE;
+using Noggog;
+
 
 namespace SynCGOStaves
 {
@@ -21,21 +23,23 @@ namespace SynCGOStaves
 
         public static void RunPatch(IPatcherState<ISkyrimMod, ISkyrimModGetter> state)
         {
-            foreach (var weap in state.LoadOrder.PriorityOrder.OnlyEnabled().Weapon().WinningOverrides())
+            state.LoadOrder.PriorityOrder.OnlyEnabled().Weapon().WinningOverrides().ForEach(weap =>
             {
-                if (weap.Keywords?.Contains(Skyrim.Keyword.WeapTypeStaff) ?? false)
                 {
-                    if (!weap.FormKey.ModKey.FileName.Contains("CGOStaves"))
+                    if (weap.Keywords?.Contains(Skyrim.Keyword.WeapTypeStaff) ?? false)
                     {
-                        Console.WriteLine($"Patching staff {weap.Name}");
-                        Weapon? newweap = state.PatchMod.Weapons.GetOrAddAsOverride(weap);
-                        newweap.BlockBashImpact.SetTo(Skyrim.ImpactDataSet.WPNBashBowImpactSet);
-                        newweap.AlternateBlockMaterial.SetTo(Skyrim.MaterialType.MaterialBlockBowsStaves);
-                        newweap.ImpactDataSet.SetTo(Skyrim.ImpactDataSet.WPNzBluntImpactSet);
-                        newweap.AttackFailSound.SetTo(Skyrim.SoundDescriptor.WPNSwing2Hand);
+                        if (!weap.FormKey.ModKey.FileName.Contains("CGOStaves"))
+                        {
+                            Console.WriteLine($"Patching staff {weap.Name}");
+                            Weapon? newweap = state.PatchMod.Weapons.GetOrAddAsOverride(weap);
+                            newweap.BlockBashImpact.SetTo(Skyrim.ImpactDataSet.WPNBashBowImpactSet);
+                            newweap.AlternateBlockMaterial.SetTo(Skyrim.MaterialType.MaterialBlockBowsStaves);
+                            newweap.ImpactDataSet.SetTo(Skyrim.ImpactDataSet.WPNzBluntImpactSet);
+                            newweap.AttackFailSound.SetTo(Skyrim.SoundDescriptor.WPNSwing2Hand);
+                        }
                     }
                 }
-            }
+            });
         }
         public static void Runable(IRunnabilityState state)
         {
