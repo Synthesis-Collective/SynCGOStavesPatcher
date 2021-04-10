@@ -31,7 +31,7 @@ namespace SynCGOStaves
                         if (!weap.FormKey.ModKey.FileName.Contains("CGOStaves"))
                         {
                             Console.WriteLine($"Patching staff {weap.Name}");
-                            Weapon? newweap = state.PatchMod.Weapons.GetOrAddAsOverride(weap);
+                            var newweap = state.PatchMod.Weapons.GetOrAddAsOverride(weap);
                             newweap.BlockBashImpact.SetTo(Skyrim.ImpactDataSet.WPNBashBowImpactSet);
                             newweap.AlternateBlockMaterial.SetTo(Skyrim.MaterialType.MaterialBlockBowsStaves);
                             newweap.ImpactDataSet.SetTo(Skyrim.ImpactDataSet.WPNzBluntImpactSet);
