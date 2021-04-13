@@ -26,7 +26,7 @@ namespace SynCGOStaves
             state.LoadOrder.PriorityOrder.OnlyEnabled().Weapon().WinningOverrides().ForEach(weap =>
             {
                 {
-                    if (weap.Keywords?.Contains(Skyrim.Keyword.WeapTypeStaff) ?? false)
+                    if (weap.HasKeyword(Skyrim.Keyword.WeapTypeStaff))
                     {
                         if (!weap.FormKey.ModKey.FileName.Contains("CGOStaves"))
                         {
