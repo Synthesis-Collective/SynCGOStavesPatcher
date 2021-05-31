@@ -1,12 +1,11 @@
 using System;
-using System.Linq;
 using System.Threading.Tasks;
 using Mutagen.Bethesda;
 using Mutagen.Bethesda.Synthesis;
 using Mutagen.Bethesda.Skyrim;
 using Mutagen.Bethesda.FormKeys.SkyrimSE;
+using Mutagen.Bethesda.Plugins;
 using Noggog;
-
 
 namespace SynCGOStaves
 {
@@ -28,7 +27,7 @@ namespace SynCGOStaves
                 {
                     if (weap.HasKeyword(Skyrim.Keyword.WeapTypeStaff))
                     {
-                        if (!weap.FormKey.ModKey.FileName.Contains("CGOStaves"))
+                        if (!weap.FormKey.ModKey.FileName.String.Contains("CGOStaves", StringComparison.OrdinalIgnoreCase))
                         {
                             Console.WriteLine($"Patching staff {weap.Name}");
                             var newweap = state.PatchMod.Weapons.GetOrAddAsOverride(weap);
