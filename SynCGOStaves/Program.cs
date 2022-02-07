@@ -2,10 +2,10 @@ using System;
 using System.Threading.Tasks;
 
 using Mutagen.Bethesda;
+using Mutagen.Bethesda.FormKeys.SkyrimSE;
 using Mutagen.Bethesda.Plugins;
 using Mutagen.Bethesda.Skyrim;
 using Mutagen.Bethesda.Synthesis;
-using Mutagen.Bethesda.FormKeys.SkyrimSE;
 
 using Noggog;
 
