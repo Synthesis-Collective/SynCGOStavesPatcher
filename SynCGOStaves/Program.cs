@@ -44,7 +44,7 @@ namespace SynCGOStaves
         }
         public static void Runable(IRunnabilityState state)
         {
-            state.LoadOrder.AssertHasMod(ModKey.FromNameAndExtension("DSerCombatGameplayOverhaul.esp"));
+            state.LoadOrder.AssertListsMod(ModKey.FromNameAndExtension("DSerCombatGameplayOverhaul.esp"));
         }
     }
 }
